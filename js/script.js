@@ -8,8 +8,7 @@ let totalPages = 1;
 function fetchCharacters(page) {
   fetch(`https://rickandmortyapi.com/api/character/?page=${page}`)
     .then(response => response.json())
-    .then(data   
- => {
+    .then(data => {
       totalPages = data.info.pages;
       characterList.innerHTML = ''; // Clear existing characters
 
@@ -33,5 +32,4 @@ function fetchCharacters(page) {
 
 fetchCharacters(currentPage);
 
-fetchCharacters(currentPage);
 

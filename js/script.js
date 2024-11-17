@@ -10,7 +10,7 @@ function fetchCharacters(page) {
     .then(response => response.json())
     .then(data => {
       totalPages = data.info.pages;
-      characterList.innerHTML = ''; // Clear existing characters
+      characterList.innerHTML = ''; 
 
       data.results.forEach(character => {
         const characterItem = document.createElement('li');

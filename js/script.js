@@ -1,38 +1,36 @@
-const Personajes = document.getElementById('character-list');
-const prevPageButton = document.getElementById('prev-page');
-const nextPageButton = document.getElementById('next-page');   
+const characterList = document.getElementById('character-list');
+const prevButton = document.getElementById('prev-page');
+const nextButton = document.getElementById('next-page');
 
-
-let PagActual = 1;
-let PagTotal = 1;
+let currentPage = 1;
+let totalPages = 1;
 
 async function fetchCharacters(page) {
   try {
-    const respuesta = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}`);
-    const datos = await respuesta.json();
-
-    PagTotal = datos.info.pages;
+    const response = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}`);
+    const data = await response.json();   
 
 
-    Personajes.innerHTML = ''; 
+    totalPages = data.info.pages;   
 
-    datos.results.forEach(character => {
-      const li = document.createElement('li');
-      li.innerHTML = `
+    characterList.innerHTML = ''; // Clear existing characters
+
+    data.results.forEach(character => {
+      const characterItem = document.createElement('li');
+      characterItem.innerHTML = `
         <img src="${character.image}" alt="${character.name}">
         <h2>${character.name}</h2>
         <p>Species: ${character.species}</p>
       `;
-      Personajes.appendChild(li);
+      characterList.appendChild(characterItem);
     });
 
-
-    prevPageButton.disabled = PagActual === 1;
-    nextPageButton.disabled = PagActual === PagTotal;
+    prevButton.disabled = currentPage === 1;
+    nextButton.disabled = currentPage === totalPages;
   } catch (error) {
     console.error('Error fetching characters:', error);
   }
 }
 
-fetchCharacters(PagActual);
+fetchCharacters(currentPage);
 
